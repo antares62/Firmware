@@ -50,34 +50,50 @@
 /************************************************************************************
  * Definitions
  ************************************************************************************/
+/******************************************************************************
+ * GPIOS
+ ******************************************************************************/
 
-/* PX4IO GPIOs **********************************************************************/
-/* LEDs */
+#define BOARD_GPIO_OUTPUT(pin) (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|\
+                                GPIO_OUTPUT_CLEAR|(pin))
+#define BOARD_GPIO_INPUT_FLOAT(pin)  (GPIO_INPUT|GPIO_CNF_INFLOAT|\
+                                      GPIO_MODE_INPUT|(pin))
+#define BOARD_GPIO_INPUT_PUP(pin) (GPIO_INPUT|GPIO_CNF_INPULLUP|\
+                                   GPIO_MODE_INPUT|(pin))
+#define BOARD_GPIO_INPUT_ANALOG(pin) (GPIO_INPUT|GPIO_CNF_ANALOGIN|\
+                                   GPIO_MODE_INPUT|(pin))
 
-#define GPIO_LED1       (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|\
-                         GPIO_OUTPUT_CLEAR|GPIO_PORTB|GPIO_PIN14)
-#define GPIO_LED2       (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|\
-                         GPIO_OUTPUT_CLEAR|GPIO_PORTB|GPIO_PIN15)
-#define GPIO_LED3       (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|\
-                         GPIO_OUTPUT_CLEAR|GPIO_PORTB|GPIO_PIN10)
+
+/* LEDs *********************************************************************/
+
+#define BOARD_GPIO_LED1 (GPIO_PORTB|GPIO_PIN14)
+#define BOARD_GPIO_LED2 (GPIO_PORTB|GPIO_PIN15)
+#define BOARD_GPIO_LED3 (GPIO_PORTB|GPIO_PIN10)
+
+#define BOARD_GPIO_LED_BLUE   BOARD_GPIO_LED1
+#define BOARD_GPIO_LED_AMBER  BOARD_GPIO_LED2
+#define BOARD_GPIO_LED_SAFETY BOARD_GPIO_LED3
 
 /* Safety switch button *************************************************************/
 
-#define GPIO_BTN_SAFETY (GPIO_INPUT|GPIO_CNF_INFLOAT|GPIO_MODE_INPUT|GPIO_PORTB|GPIO_PIN5)
+// float
+#define BOARD_GPIO_BTN_SAFETY (GPIO_PORTB|GPIO_PIN5)
 
 /* Power switch controls ************************************************************/
 
-#define GPIO_ACC1_PWR_EN  (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTC|GPIO_PIN13)
-#define GPIO_ACC2_PWR_EN  (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTC|GPIO_PIN14)
-#define GPIO_SERVO_PWR_EN (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTC|GPIO_PIN15)
+#define BOARD_GPIO_ACC1_PWR_EN  (GPIO_PORTC|GPIO_PIN13)
+#define BOARD_GPIO_ACC2_PWR_EN  (GPIO_PORTC|GPIO_PIN14)
+#define BOARD_GPIO_SERVO_PWR_EN (GPIO_PORTC|GPIO_PIN15)
 
-#define GPIO_ACC_OC_DETECT   (GPIO_INPUT|GPIO_CNF_INPULLUP|GPIO_MODE_INPUT|GPIO_PORTB|GPIO_PIN12)
-#define GPIO_SERVO_OC_DETECT (GPIO_INPUT|GPIO_CNF_INPULLUP|GPIO_MODE_INPUT|GPIO_PORTB|GPIO_PIN13)
+// pullup
+#define BOARD_GPIO_ACC_OC_DETECT   (GPIO_PORTB|GPIO_PIN12)
+#define BOARD_GPIO_SERVO_OC_DETECT (GPIO_PORTB|GPIO_PIN13)
 
-#define GPIO_RELAY1_EN (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTA|GPIO_PIN12)
-#define GPIO_RELAY2_EN (GPIO_OUTPUT|GPIO_CNF_OUTPP|GPIO_MODE_50MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTA|GPIO_PIN11)
+#define BOARD_GPIO_RELAY1_EN (GPIO_PORTA|GPIO_PIN12)
+#define BOARD_GPIO_RELAY2_EN (GPIO_PORTA|GPIO_PIN11)
 
 /* Analog inputs ********************************************************************/
 
-#define GPIO_ADC_VBATT	(GPIO_INPUT|GPIO_CNF_ANALOGIN|GPIO_MODE_INPUT|GPIO_PORTA|GPIO_PIN4)
-#define GPIO_ADC_IN5	(GPIO_INPUT|GPIO_CNF_ANALOGIN|GPIO_MODE_INPUT|GPIO_PORTA|GPIO_PIN5)
+#define BOARD_GPIO_ADC_VBATT (GPIO_PORTA|GPIO_PIN4)
+#define BOARD_GPIO_ADC_IN5	 (GPIO_PORTA|GPIO_PIN5)
+

@@ -42,7 +42,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include <drivers/boards/px4io/px4io_internal.h>
+#include <arch/board/board.h>
 
 #include "protocol.h"
 
@@ -119,19 +119,39 @@ extern struct sys_state_s system_state;
 /*
  * GPIO handling.
  */
-#define LED_BLUE(_s)		stm32_gpiowrite(GPIO_LED1, !(_s))
-#define LED_AMBER(_s)		stm32_gpiowrite(GPIO_LED2, !(_s))
-#define LED_SAFETY(_s)		stm32_gpiowrite(GPIO_LED3, !(_s))
+#define LED_BLUE(_s)		stm32_gpiowrite(BOARD_GPIO_LED1, !(_s))
+#define LED_AMBER(_s)		stm32_gpiowrite(BOARD_GPIO_LED2, !(_s))
+#define LED_SAFETY(_s)		stm32_gpiowrite(BOARD_GPIO_LED3, !(_s))
 
-#define POWER_SERVO(_s)		stm32_gpiowrite(GPIO_SERVO_PWR_EN, (_s))
-#define POWER_ACC1(_s)		stm32_gpiowrite(GPIO_ACC1_PWR_EN, (_s))
-#define POWER_ACC2(_s)		stm32_gpiowrite(GPIO_ACC2_PWR_EN, (_s))
-#define POWER_RELAY1(_s)	stm32_gpiowrite(GPIO_RELAY1_EN, (_s))
-#define POWER_RELAY2(_s)	stm32_gpiowrite(GPIO_RELAY2_EN, (_s))
+#define POWER_SERVO(_s)		stm32_gpiowrite(BOARD_GPIO_SERVO_PWR_EN, (_s))
 
-#define OVERCURRENT_ACC		(!stm32_gpioread(GPIO_ACC_OC_DETECT))
-#define OVERCURRENT_SERVO	(!stm32_gpioread(GPIO_SERVO_OC_DETECT))
-#define BUTTON_SAFETY		stm32_gpioread(GPIO_BTN_SAFETY)
+#ifdef BOARD_GPIO_ACC1_POWER_EN
+ #define POWER_ACC1(_s)		stm32_gpiowrite(BOARD_GPIO_ACC1_PWR_EN, (_s))
+#else
+ #define POWER_ACC1(_s)
+#endif
+
+#ifdef BOARD_GPIO_ACC2_PWR_EN
+ #define POWER_ACC2(_s)		stm32_gpiowrite(BOARD_GPIO_ACC2_PWR_EN, (_s))
+#else
+ #define POWER_ACC2(_s)
+#endif
+
+#ifdef BOARD_GPIO_RELAY1_EN
+ #define POWER_RELAY1(_s)	stm32_gpiowrite(BOARD_GPIO_RELAY1_EN, (_s))
+#else
+ #define POWER_RELAY1(_s)
+#endif
+
+#ifdef BOARD_GPIO_RELAY1_EN
+ #define POWER_RELAY2(_s)	stm32_gpiowrite(BOARD_GPIO_RELAY2_EN, (_s))
+#else
+ #define POWER_RELAY2(_s)
+#endif
+
+#define OVERCURRENT_ACC		(!stm32_gpioread(BOARD_GPIO_ACC_OC_DETECT))
+#define OVERCURRENT_SERVO	(!stm32_gpioread(BOARD_GPIO_SERVO_OC_DETECT))
+#define BUTTON_SAFETY		stm32_gpioread(BOARD_GPIO_BTN_SAFETY)
 
 #define ADC_VBATT		4
 #define ADC_IN5			5

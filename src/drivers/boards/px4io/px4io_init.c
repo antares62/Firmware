@@ -55,14 +55,12 @@
 #include <nuttx/arch.h>
 
 #include "stm32_internal.h"
-#include "px4io_internal.h"
 #include "stm32_uart.h"
 
 #include <arch/board/board.h>
 
-#include <drivers/drv_hrt.h>
-#include <drivers/drv_led.h>
-#include <drivers/drv_pwm_output.h>
+#include "px4io_internal.h"
+
 
 /****************************************************************************
  * Public Functions
@@ -81,18 +79,18 @@
 __EXPORT void stm32_boardinitialize(void)
 {
 	/* configure GPIOs */
-	stm32_configgpio(GPIO_ACC1_PWR_EN);
-	stm32_configgpio(GPIO_ACC2_PWR_EN);
-	stm32_configgpio(GPIO_SERVO_PWR_EN);
-	stm32_configgpio(GPIO_RELAY1_EN);
-	stm32_configgpio(GPIO_RELAY2_EN);
-	stm32_configgpio(GPIO_LED1);
-	stm32_configgpio(GPIO_LED2);
-	stm32_configgpio(GPIO_LED3);
-	stm32_configgpio(GPIO_ACC_OC_DETECT);
-	stm32_configgpio(GPIO_SERVO_OC_DETECT);
-	stm32_configgpio(GPIO_BTN_SAFETY);
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_ACC1_PWR_EN));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_ACC2_PWR_EN));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_SERVO_PWR_EN));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_RELAY1_EN));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_RELAY2_EN));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_LED1));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_LED2));
+	stm32_configgpio(BOARD_GPIO_OUTPUT(BOARD_GPIO_LED3));
+	stm32_configgpio(BOARD_GPIO_INPUT_PUP(BOARD_GPIO_ACC_OC_DETECT));
+	stm32_configgpio(BOARD_GPIO_INPUT_PUP(BOARD_GPIO_SERVO_OC_DETECT));
+	stm32_configgpio(BOARD_GPIO_INPUT_FLOAT(BOARD_GPIO_BTN_SAFETY));
 
-	stm32_configgpio(GPIO_ADC_VBATT);
-	stm32_configgpio(GPIO_ADC_IN5);
+	stm32_configgpio(BOARD_GPIO_INPUT_ANALOG(BOARD_GPIO_ADC_VBATT));
+	stm32_configgpio(BOARD_GPIO_INPUT_ANALOG(BOARD_GPIO_ADC_IN5));
 }

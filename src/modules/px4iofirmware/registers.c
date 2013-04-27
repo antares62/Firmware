@@ -41,8 +41,10 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <drivers/drv_hrt.h>
+#include <drivers/drv_pwm_output.h>
 
 #include "px4io.h"
 #include "protocol.h"

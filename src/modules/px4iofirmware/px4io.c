@@ -133,7 +133,9 @@ user_start(int argc, char *argv[])
 	 * Poll at 1ms intervals for received bytes that have not triggered
 	 * a DMA event.
 	 */
+#ifdef CONFIG_ARCH_DMA
 	hrt_call_every(&serial_dma_call, 1000, 1000, (hrt_callout)stm32_serial_dma_poll, NULL);
+#endif
 
 	/* print some startup info */
 	lowsyslog("\nPX4IO: starting\n");
